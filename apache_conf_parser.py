@@ -128,7 +128,11 @@ _NODES.append(BlankNode)
 
 class Directive(Node):
     """A configuration directive."""
-    NAME_RE = "[a-zA-Z]\w*"
+    # MOZILLA MODIFICATION:
+    # Original NAME_RE was "[a-zA-Z]\w*", but patcher configs use non-word
+    # characters in node names, so we needed to be more liberal about what
+    # is acceptable here.
+    NAME_RE = "[a-zA-Z0-9][-.\w]*"
 
     def __init__(self):
         super(Directive, self).__init__()
